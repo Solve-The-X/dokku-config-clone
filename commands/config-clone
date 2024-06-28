@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -eo pipefail
+[[ $DOKKU_TRACE ]] && set -x
+
+cmd-config-clone() {
+  local src_app="$1"
+  local dest_app="$2"
+
+  if [[ -z "$src_app" || -z "$dest_app" ]]; then
+    echo "Usage: dokku config:clone <source-app> <destination-app>"
+    exit 1
+  fi
+
+  # Get environment variables from the source app, excluding those that start with DOKKU_
+  local env_vars=$(dokku config:get --source env "$src_app" | grep -v '^DOKKU_')
+
+  # Set the environment variables in the destination app
+  while IFS= read -r line; do
+    dokku config:set --no-restart "$dest_app" "$line"
+  done <<< "$env_vars"
+
+  echo "Environment variables cloned from $src_app to $dest_app."
+}
+
+cmd-config-clone "$@"

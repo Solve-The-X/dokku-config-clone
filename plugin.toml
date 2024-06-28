@@ -1,0 +1,5 @@
+[plugin]
+version = "0.0.1"
+description = "Plugin to clone environment variables from one app to another"
+author = "SOLVETHEX"
+[plugin.config]
