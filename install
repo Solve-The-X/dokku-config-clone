@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+# Set permissions
+chmod +x "$(dirname "$0")/commands"
+chmod +x "$(dirname "$0")/config-clone/functions"
+
+# Optionally, you can set ownership to dokku:dokku if needed
+# chown dokku:dokku -R "$(dirname "$0")"
+
+echo "Config-clone plugin installed successfully."
