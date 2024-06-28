@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+[[ " $1 " == *" help config:clone "* ]] || exit "$DOKKU_NOT_IMPLEMENTED_EXIT"
+
+source "$(dirname "$BASH_SOURCE")/config-clone/functions"
+set -eo pipefail
+[[ $DOKKU_TRACE ]] && set -x
+
+case "$1" in
+  help | config:clone)
+    cmd-config-clone "$@"
+    ;;
+
+  *)
+    exit "$DOKKU_NOT_IMPLEMENTED_EXIT"
+    ;;
+esac
